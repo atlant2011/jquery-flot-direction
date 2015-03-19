@@ -13,7 +13,8 @@ direction: {
             openAngle: 30,
             zeroShow: false,
             threshold: 0.000001,
-            angleStart: 0
+            angleStart: 0,
+            arrawMirror: false
         }
 
 =========
@@ -36,6 +37,10 @@ direction: {
 =========
  changes
 =========
+version 1.4.3
+-------------
+append mirrorin arrow (using in measuring wind direction from meteorology )
+
 version 1.4.2
 -------------
 fix bug that not draw the direction when the serial data is less than 3.
@@ -96,12 +101,14 @@ $.plot(
 =============
 Jernej Jerin: Thank you for your testing any version of the plugin and reporting the bugs.
 Xue Wei: the example section now works with flot v0.7 after version 1.4.1.
+https://code.google.com/u/101767879596973762987/: Me copy your code!
 
 =========
  more :)
 =========
 Author: xb liu
-Site: http://code.google.com/p/jquery-flot-direction/
+Site: http://code.google.com/p/jquery-flot-direction/ (Closing site by Google@)
+Site: https://github.com/atlant2011/jquery-flot-direction
 License: GPL(any version) or Perl Artistic License
 */
 
@@ -119,7 +126,8 @@ License: GPL(any version) or Perl Artistic License
                 openAngle: 30,
                 zeroShow: false,
                 threshold: 0.000001,
-                angleStart: 0
+                angleStart: 0,
+                arrawMirror: false
             }
         }
     };
@@ -169,7 +177,9 @@ License: GPL(any version) or Perl Artistic License
                 }
                 else {
                     direct = Math.PI/2 - points[i][2] + series.angleStart;
-                }                
+                }
+                if (series.arrawMirror == true)
+                    direct = direct + Math.PI;
                 
                 var tail_percent = 0.5;
                 var t_x = x + radius * Math.cos(direct);
@@ -177,7 +187,7 @@ License: GPL(any version) or Perl Artistic License
                 var f_x = x - radius * Math.cos(direct) * tail_percent;
                 var f_y = y + radius * Math.sin(direct) * tail_percent;
                                 
-                var sharp_angle = (series.openAngle * Math.PI / 180) % 90; //arraw open angle
+                var sharp_angle = ((series.openAngle * Math.PI / 180 ) % 90) ; //arraw open angle
                 
                 var r_x = f_x - radius / Math.cos(sharp_angle) * Math.cos(direct + sharp_angle);
                 var r_y = f_y + radius / Math.cos(sharp_angle) * Math.sin(direct + sharp_angle);
