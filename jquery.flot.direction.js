@@ -152,7 +152,7 @@ License: GPL(any version) or Perl Artistic License
             var radius = series.arrawLength;
             
             for (i = 0; i < points.length; i++) {
-                if (points[i].length < 3 || points[i][1] === null) {
+                if (points[i].length < 3 || points[i][1] === null || points[i][2] === null) {
                     continue;
                 }
                 
